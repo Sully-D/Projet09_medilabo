@@ -31,6 +31,17 @@ public class PatientServiceImpl implements PatientService {
         logger.info("Attempting to add a new patient: {}", patient);
         try {
             patientValidationService.validatePatient(patient);
+
+            Optional<Patient> isPatientExist = patientRepository.findByFirstNameAndLastNameAndDateOfBirth(
+                    patient.getFirstName(), patient.getLastName(), patient.getDateOfBirth()
+            );
+
+            if (isPatientExist.isPresent()) {
+                logger.warn("Patient already exists with the provided details: {} {} {}",
+                        patient.getFirstName(), patient.getLastName(), patient.getDateOfBirth());
+                return null;
+            }
+
             Patient savedPatient = patientRepository.save(patient);
             logger.info("Patient added successfully with ID: {}", savedPatient.getId());
             return savedPatient;
