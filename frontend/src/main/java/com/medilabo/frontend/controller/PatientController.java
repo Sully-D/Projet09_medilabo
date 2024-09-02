@@ -1,5 +1,6 @@
 package com.medilabo.frontend.controller;
 
+import com.medilabo.backend.model.Patient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -31,14 +34,13 @@ public class PatientController {
     }
 
     @GetMapping("/patients")
-    public ResponseEntity<?> getPatients() {
+    public ResponseEntity<List<Patient>> getPatients() {
         logger.info("Request received to fetch patients data.");
         logger.debug("Gateway URL: {}", gatewayUrl);
 
         try {
             // Créer les en-têtes HTTP et ajouter l'authentification Basic
             HttpHeaders headers = new HttpHeaders();
-            headers.setBasicAuth("user", "user");
 
             // Créer l'entité HTTP en utilisant les en-têtes
             HttpEntity<String> entity = new HttpEntity<>(headers);
@@ -51,7 +53,7 @@ public class PatientController {
             return ResponseEntity.ok(response.getBody());
         } catch (Exception e) {
             logger.error("Error occurred while fetching patients data from the gateway", e);
-            return ResponseEntity.internalServerError().body("Error fetching patients data");
+            return ResponseEntity.internalServerError().body(Collections.emptyList());
         }
     }
 }
