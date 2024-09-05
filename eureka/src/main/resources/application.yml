@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: eureka
+
+info:
+  component: DiscoveryService
+
+server:
+  port: 8010
+
+eureka:
+  server:
+    enable-self-preservation: false
+    waitTimeInMsWhenSyncEmpty: 0
+  instance:
+    lease-expiration-duration-in-seconds: 15
+    lease-renewal-interval-in-seconds: 5
+    hostname: localhost
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:8010/eureka/

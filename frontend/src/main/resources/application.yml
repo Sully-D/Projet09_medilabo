@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: frontend
+
+server:
+  port: 8082
+
+gateway:
+  url: http://localhost:8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8010/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  level:
+    com:
+      medilabo:
+        frontend: INFO
+        frontend.controller: DEBUG
+    org:
+      springframework:
+        security: DEBUG
+        cloud:
+          gateway: DEBUG

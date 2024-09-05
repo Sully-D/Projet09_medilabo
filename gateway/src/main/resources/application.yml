@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+          routes:
+            - id: backend
+              uri: lb://backend:8081
+              predicates:
+                - Path=/api/patients/**
+            - id: frontend
+              uri: lb://frontend:8082
+              predicates:
+                - Path=/patients/**
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8010/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    leaseRenewalIntervalInSeconds: 30
+    leaseExpirationDurationInSeconds: 90
+
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  level:
+    com:
+      medilabo:
+        gateway: INFO
+        gateway.config: DEBUG
+    org:
+      springframework:
+        security: DEBUG
+        cloud:
+          gateway: DEBUG
+          gateway.route: DEBUG
+          client:
+            loadbalancer: DEBUG

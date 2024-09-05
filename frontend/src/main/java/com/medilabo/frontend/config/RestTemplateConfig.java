@@ -7,6 +7,12 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class RestTemplateConfig {
+
+    /**
+     * Creates a new instance of RestTemplate with load balancing enabled.
+     *
+     * @return a load-balanced RestTemplate instance
+     */
     @Bean
     @LoadBalanced
     public RestTemplate restTemplate() {

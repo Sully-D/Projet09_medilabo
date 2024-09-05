@@ -4,6 +4,7 @@ import com.medilabo.backend.model.Patient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -46,8 +47,11 @@ public class PatientController {
             HttpEntity<String> entity = new HttpEntity<>(headers);
 
             logger.info("Sending request to: {}/api/patients", gatewayUrl);
-            ResponseEntity<List> response = restTemplate.exchange(gatewayUrl + "/api/patients",
-                    HttpMethod.GET, entity, List.class);
+            ResponseEntity<List<Patient>> response = restTemplate.exchange(
+                    gatewayUrl + "/api/patients",
+                    HttpMethod.GET, entity,
+                    new ParameterizedTypeReference<List<Patient>>() {}
+            );
 
             logger.info("Received response with patients data: {}", response.getBody());
             return ResponseEntity.ok(response.getBody());

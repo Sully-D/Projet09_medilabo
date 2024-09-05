@@ -1,12 +1,5 @@
 spring.application.name=eureka
 
-#server.port=9102
-#eureka.instance.prefer-ip-address=true
-#eureka.instance.hostname=localhost
-#eureka.instance.ipAddress=127.0.0.1
-#eureka.client.register-with-eureka=false
-#eureka.client.fetch-registry=false
-
 info.component=DiscoveryService
 server.port=8010
 eureka.server.enable-self-preservation=false
