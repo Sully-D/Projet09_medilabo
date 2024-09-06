@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Controller handling CRUD operations for patients in the system.
+ * Supports adding, updating, fetching all, searching by name, and deleting patients.
+ */
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/patients")
@@ -22,6 +26,12 @@ public class PatientController {
     @Autowired
     private PatientService patientService;
 
+    /**
+     * Adds a new patient to the system.
+     *
+     * @param patient The patient object to be added.
+     * @return ResponseEntity with the added patient and HTTP status code.
+     */
     @PostMapping
     public ResponseEntity<Patient> addPatient(@RequestBody Patient patient) {
         logger.info("Received request to add a new patient: {}", patient);
@@ -35,6 +45,13 @@ public class PatientController {
         }
     }
 
+    /**
+     * Updates a patient in the system based on the provided ID.
+     *
+     * @param id The ID of the patient to be updated.
+     * @param patient The updated patient object.
+     * @return ResponseEntity with the updated patient and corresponding HTTP status.
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Patient> updatePatient(@PathVariable String id, @RequestBody Patient patient) {
         logger.info("Received request to update patient with ID: {}", id);
@@ -53,6 +70,11 @@ public class PatientController {
         }
     }
 
+    /**
+     * Retrieves all patients from the system.
+     *
+     * @return ResponseEntity with a list of all patients and corresponding HTTP status.
+     */
     @GetMapping
     public ResponseEntity<List<Patient>> getAllPatients() {
         logger.info("Received request to fetch all patients");
@@ -61,6 +83,14 @@ public class PatientController {
         return ResponseEntity.ok(patients);
     }
 
+    /**
+     * Retrieves a patient by their first name and last name.
+     *
+     * @param firstName The first name of the patient to search for.
+     * @param lastName The last name of the patient to search for.
+     * @return ResponseEntity with the found patient and corresponding HTTP status, or a status of NOT_FOUND if the patient is not found.
+     * In case of an error during the search, returns a BAD_REQUEST status.
+     */
     @GetMapping("/search")
     public ResponseEntity<Patient> getPatientByName(@RequestParam String firstName, @RequestParam String lastName) {
         logger.info("Received request to search patient by name: {} {}", firstName, lastName);
@@ -79,6 +109,14 @@ public class PatientController {
         }
     }
 
+    /**
+     * Deletes a patient from the system based on the provided ID.
+     *
+     * @param id The ID of the patient to be deleted.
+     * @return ResponseEntity with no content and HTTP status NO_CONTENT upon successful deletion.
+     * If the patient is not found, returns a NOT_FOUND status.
+     * In case of an error during deletion, returns a status of NOT_FOUND.
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePatient(@PathVariable String id) {
         logger.info("Received request to delete patient with ID: {}", id);
