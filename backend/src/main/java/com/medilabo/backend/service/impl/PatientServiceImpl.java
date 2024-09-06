@@ -221,4 +221,33 @@ public class PatientServiceImpl implements PatientService {
         }
     }
 
+    @Override
+    public Optional<Patient> getPatientById(String id) {
+        logger.info("Searching for patient by id: {}", id);
+
+        try {
+            // Search for the patient in the repository
+            Optional<Patient> patient = patientRepository.getPatientById(id).stream().findFirst();
+
+            // Log whether the patient was found
+            if (patient.isPresent()) {
+                logger.info("Patient found: {}", patient.get());
+            } else {
+                logger.warn("No patient found with this id: {}", id);
+            }
+
+            return patient;
+
+        } catch (IllegalArgumentException e) {
+            // Log and throw a specific validation exception
+            logger.error("Validation failed while searching for patient: {}", e.getMessage(), e);
+            throw new ValidationException("Validation failed: " + e.getMessage(), e);
+
+        } catch (DataAccessException e) {
+            // Log and throw a specific database operation exception if any DB issue occurs
+            logger.error("Database operation failed while searching for patient: {}", e.getMessage(), e);
+            throw new DatabaseOperationException("Database operation failed: " + e.getMessage(), e);
+        }
+    }
+
 }

@@ -91,6 +91,25 @@ public class PatientController {
         }
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Patient> getPatientById(@PathVariable String id) {
+        logger.info("Received request to fetch patient with ID: {}", id);
+
+        try {
+            Optional<Patient> patient = patientService.getPatientById(id);
+            if (patient.isPresent()) {
+                return ResponseEntity.ok(patient.get());
+            } else {
+                logger.warn("Patient with ID: {} not found", id);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+        } catch (RuntimeException e) {
+            logger.error("Error occurred while fetching patient with ID: {}", id, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+
 
     /**
      * Retrieves all patients from the system.
@@ -202,6 +221,5 @@ public class PatientController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();  // 500 Internal Server Error on other issues
         }
     }
-
 
 }

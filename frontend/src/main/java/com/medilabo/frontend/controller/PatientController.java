@@ -2,16 +2,13 @@ package com.medilabo.frontend.controller;
 
 import com.medilabo.backend.model.Patient;
 import com.medilabo.frontend.service.PatientService;
-import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -28,10 +25,6 @@ public class PatientController {
 
     @Autowired
     private PatientService patientService;
-
-    @Value("${gateway.name:http://gateway}")
-    private String gatewayUrl;
-
 
     /**
      * Displays the list of all patients.
@@ -102,7 +95,7 @@ public class PatientController {
         try {
             Patient patient = patientService.getPatientById(id);
             model.addAttribute("patient", patient);
-            return "patients/edit-patient";
+            return "edit-patient";
 
         } catch (Exception e) {
             logger.error("Error occurred while fetching patient with ID: {}", id, e);

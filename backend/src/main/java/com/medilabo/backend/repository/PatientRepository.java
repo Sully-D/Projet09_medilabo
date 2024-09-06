@@ -13,4 +13,6 @@ public interface PatientRepository extends MongoRepository<Patient, String> {
     Optional<Patient> findByFirstNameAndLastName(String firstName, String lastName);
 
     Optional<Patient> findByFirstNameAndLastNameAndDateOfBirth(String firstName, String lastName, String dateOfBirth);
+
+    Optional<Patient> getPatientById(String id);
 }

@@ -18,7 +18,7 @@
   <input type="text" id="lastName" name="lastName" th:value="${patient.lastName}" required>
 
   <label for="dateOfBirth">Date de naissance :</label>
-  <input type="date" id="dateOfBirth" name="dateOfBirth" th:value="${#dates.format(patient.dateOfBirth, 'yyyy-MM-dd')}" required>
+  <input type="text" id="dateOfBirth" name="dateOfBirth" th:value="${patient.dateOfBirth}" required>
 
   <button type="submit">Modifier</button>
 </form>

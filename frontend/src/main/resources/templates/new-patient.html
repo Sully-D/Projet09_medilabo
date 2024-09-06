@@ -8,7 +8,7 @@
 <body>
 <h1>Ajouter un nouveau patient</h1>
 
-<form th:action="@{/patients}" method="post">
+<form th:action="@{/patients/add}" method="post">
     <label for="firstName">Prénom :</label>
     <input type="text" id="firstName" name="firstName" required>
 
@@ -16,7 +16,7 @@
     <input type="text" id="lastName" name="lastName" required>
 
     <label for="dateOfBirth">Date de naissance :</label>
-    <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+    <input type="text" id="dateOfBirth" name="dateOfBirth" required>
 
     <button type="submit">Ajouter</button>
 </form>

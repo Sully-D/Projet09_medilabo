@@ -20,4 +20,5 @@ public interface PatientService {
 
     void delete (String id);
 
+    Optional<Patient> getPatientById(String id);
 }
