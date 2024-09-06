@@ -1,5 +1,6 @@
 package com.medilabo.backend.controller;
 
+import com.medilabo.backend.exceptions.EntityNotFoundException;
 import com.medilabo.backend.model.Patient;
 import com.medilabo.backend.service.PatientService;
 import jakarta.validation.Valid;
@@ -190,11 +191,17 @@ public class PatientController {
             logger.info("Patient with ID: {} deleted successfully", id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();  // 204 No Content on success
 
+        } catch (EntityNotFoundException e) {
+            // Log a specific error if the patient was not found
+            logger.warn("Patient with ID: {} not found", id);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();  // 404 Not Found if patient doesn't exist
+
         } catch (RuntimeException e) {
             // Log and return a 500 status in case of any other server-side error
             logger.error("Error occurred while deleting patient with ID: {}", id, e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();  // 500 Internal Server Error on other issues
         }
     }
+
 
 }
