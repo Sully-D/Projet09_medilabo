@@ -1,31 +1,38 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Patient</title>
+  <title>Liste des Patients</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <h1>Liste des Patients</h1>
+
 <table>
   <thead>
   <tr>
     <th>ID</th>
-    <th>Nom</th>
     <th>Prénom</th>
-    <th>Date de Naissance</th>
-    <th>Genre</th>
-    <th>Historique Médical</th>
+    <th>Nom</th>
+    <th>Date de naissance</th>
+    <th>Actions</th>
   </tr>
   </thead>
   <tbody>
   <tr th:each="patient : ${patients}">
-    <td th:text="${patient['id']}"></td>
-    <td th:text="${patient['lastName']}"></td>
-    <td th:text="${patient['firstName']}"></td>
-    <td th:text="${patient['dateOfBirth']}"></td>
-    <td th:text="${patient['gender']}"></td>
-    <td th:text="${patient['medicalHistory']}"></td>
+    <td th:text="${patient.id}"></td>
+    <td th:text="${patient.firstName}"></td>
+    <td th:text="${patient.lastName}"></td>
+    <td th:text="${patient.dateOfBirth}"></td>
+    <td>
+      <a th:href="@{/patients/edit/{id}(id=${patient.id})}">Modifier</a> |
+      <a th:href="@{/patients/delete/{id}(id=${patient.id})}"
+         onclick="return confirm('Voulez-vous vraiment supprimer ce patient ?')">Supprimer</a>
+    </td>
   </tr>
   </tbody>
 </table>
+
+<a href="/patients/add">Ajouter un nouveau patient</a>
 </body>
 </html>

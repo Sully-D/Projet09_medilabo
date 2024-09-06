@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Rechercher un Patient</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h1>Rechercher un patient</h1>
+
+<form th:action="@{/patients/search}" method="get">
+  <label for="firstName">Prénom :</label>
+  <input type="text" id="firstName" name="firstName" required>
+
+  <label for="lastName">Nom :</label>
+  <input type="text" id="lastName" name="lastName" required>
+
+  <button type="submit">Rechercher</button>
+</form>
+
+<div th:if="${patient}">
+  <h2>Résultat de la recherche</h2>
+  <p>Patient trouvé : <span th:text="${patient.firstName} + ' ' + ${patient.lastName}"></span></p>
+  <p>Date de naissance : <span th:text="${#dates.format(patient.dateOfBirth, 'dd/MM/yyyy')}"></span></p>
+</div>
+
+<a href="/patients">Retour à la liste des patients</a>
+</body>
+</html>
