@@ -24,7 +24,7 @@ public class PatientController {
 
     private static final Logger logger = LoggerFactory.getLogger(PatientController.class);
 
-    @Value("${gateway.name:https://gateway}")
+    @Value("${gateway.name:http://gateway}")
     private String gatewayUrl;
 
     private final RestTemplate restTemplate;
