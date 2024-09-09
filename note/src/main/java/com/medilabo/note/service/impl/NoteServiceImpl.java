@@ -3,6 +3,7 @@ package com.medilabo.note.service.impl;
 import com.medilabo.note.model.Note;
 import com.medilabo.note.repository.NoteRepository;
 import com.medilabo.note.service.NoteService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,13 +11,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Log4j2
 public class NoteServiceImpl implements NoteService {
 
     @Autowired
     private NoteRepository noteRepository;
 
     @Override
-    public List<Note> getNotesByPatientId(String patientId) {
+    public Optional<List<Note>> getNotesByPatientId(String patientId) {
 
         if (patientId == null) {
             throw new IllegalArgumentException("Patient ID cannot be null");
@@ -25,10 +27,12 @@ public class NoteServiceImpl implements NoteService {
         Optional<List<Note>> notes = noteRepository.findByPatientId(patientId);
 
         if (notes.isPresent()) {
-            return notes.get();
+            log.info("Notes found for patient ID: {}", patientId);
         } else {
-            return List.of();
+            log.warn("No notes found for patient ID: {}", patientId);
         }
+
+        return notes;
     }
 
     @Override
