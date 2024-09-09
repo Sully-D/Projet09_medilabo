@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: note
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/medicalnotesdb
+
+server:
+  port: 8083
+
+gateway:
+  url: http://localhost:8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8010/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    hostname: localhost
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  level:
+    org:
+      springframework:
+        cloud:
+          gateway: DEBUG
