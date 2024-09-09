@@ -12,6 +12,10 @@ spring:
               uri: lb://frontend:8082
               predicates:
                 - Path=/patients/**
+            - id: note
+              uri: lb://note:8083
+              predicates:
+                - Path=/api/notes/**
 
 server:
   port: 8080
