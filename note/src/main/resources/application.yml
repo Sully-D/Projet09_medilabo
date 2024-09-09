@@ -3,13 +3,11 @@ spring:
     name: note
   data:
     mongodb:
-      uri: mongodb://localhost:27017/medicalnotesdb
+      uri: mongodb://192.168.1.108:27017/medicalnotesdb
 
 server:
   port: 8083
 
-gateway:
-  url: http://localhost:8080
 
 eureka:
   client:

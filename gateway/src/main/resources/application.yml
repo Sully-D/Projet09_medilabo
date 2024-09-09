@@ -5,15 +5,15 @@ spring:
     gateway:
           routes:
             - id: backend
-              uri: lb://backend:8081
+              uri: lb://backend
               predicates:
                 - Path=/api/patients/**
             - id: frontend
-              uri: lb://frontend:8082
+              uri: lb://frontend
               predicates:
                 - Path=/patients/**
             - id: note
-              uri: lb://note:8083
+              uri: lb://note
               predicates:
                 - Path=/api/notes/**
 
