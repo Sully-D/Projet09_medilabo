@@ -11,19 +11,23 @@
 <table>
   <thead>
   <tr>
-    <th>ID</th>
     <th>Prénom</th>
     <th>Nom</th>
     <th>Date de naissance</th>
+    <th>Genre</th>
+    <th>Adresse</th>
+    <th>Telephone</th>
     <th>Actions</th>
   </tr>
   </thead>
   <tbody>
   <tr th:each="patient : ${patients}">
-    <td th:text="${patient.id}"></td>
     <td th:text="${patient.firstName}"></td>
     <td th:text="${patient.lastName}"></td>
     <td th:text="${patient.dateOfBirth}"></td>
+    <td th:text="${patient.gender}"></td>
+    <td th:text="${patient.postalAddress}"></td>
+    <td th:text="${patient.phone}"></td>
     <td>
       <a th:href="@{/patients/edit/{id}(id=${patient.id})}">Modifier</a> |
       <a th:href="@{/patients/delete/{id}(id=${patient.id})}"

@@ -8,6 +8,10 @@ server:
 gateway:
   url: http://localhost:8080
 
+patient:
+  service:
+    base-url: http://localhost:8080/api/patients
+
 eureka:
   client:
     service-url:

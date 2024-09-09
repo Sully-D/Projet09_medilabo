@@ -17,8 +17,17 @@
   <label for="lastName">Nom :</label>
   <input type="text" id="lastName" name="lastName" th:value="${patient.lastName}" required>
 
-  <label for="dateOfBirth">Date de naissance :</label>
+  <label for="dateOfBirth">Date de naissance (AAAA-MM-JJ) :</label>
   <input type="text" id="dateOfBirth" name="dateOfBirth" th:value="${patient.dateOfBirth}" required>
+
+  <label for="gender">Genre :</label>
+  <input type="text" id="gender" name="gender" th:value="${patient.gender}" required>
+
+  <label for="postalAddress">Adresse postale :</label>
+  <input type="text" id="postalAddress" name="postalAddress" th:value="${patient.postalAddress}">
+
+  <label for="phoneNumber">N° de portable :</label>
+  <input type="text" id="phoneNumber" name="phoneNumber" th:value="${patient.phone}">
 
   <button type="submit">Modifier</button>
 </form>
