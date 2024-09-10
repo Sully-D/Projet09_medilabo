@@ -114,7 +114,10 @@ public class PatientController {
             Patient patient = patientService.getPatientById(id);
 
             // Retrieve patient notes by ID
-            List<Note> notes = noteService.getNotesByPatientId(id).orElse(Collections.emptyList());
+            Optional<List<Note>> notes = Optional.ofNullable(noteService.getNotesByPatientId(id));
+            if (notes.isEmpty()){
+                notes = Optional.empty();
+            }
 
             // Add patient and notes to template
             model.addAttribute("patient", patient);

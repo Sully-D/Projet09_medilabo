@@ -26,7 +26,7 @@ public class PatientNotesController {
     public String getPatientNotes(@PathVariable String patientId, Model model) {
         log.info("Received request to get patient notes");
 
-        Optional<List<Note>> notes = noteService.getNotesByPatientId(patientId);
+        Optional<List<Note>> notes = Optional.ofNullable(noteService.getNotesByPatientId(patientId));
 
         if (notes.isPresent()) {
             model.addAttribute("notes", notes.get());

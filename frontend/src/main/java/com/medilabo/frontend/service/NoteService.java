@@ -19,13 +19,13 @@ public class NoteService {
     private WebClient webClient;
 
 
-    public Optional<List<Note>> getNotesByPatientId(String patientId) {
-        return Optional.ofNullable(webClient.get()
-                .uri(baseUrl + "/notes?patientId=" + patientId)
+    public List<Note> getNotesByPatientId(String patientId) {
+        return webClient.get()
+                .uri(baseUrl + "?patientId=" + patientId)
                 .retrieve()
                 .bodyToFlux(Note.class)
                 .collectList()
-                .block());
+                .block();
     }
 
     public Note addNote(Note note) {
