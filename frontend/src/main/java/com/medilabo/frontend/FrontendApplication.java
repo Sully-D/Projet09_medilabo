@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 
-@SpringBootApplication( exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class} )
+@SpringBootApplication(exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class} )
 @EnableDiscoveryClient
 public class FrontendApplication {
 

@@ -4,10 +4,8 @@ import com.medilabo.backend.model.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -17,7 +15,7 @@ public class PatientService {
     private String baseUrl; // Inject URL from application.yml
 
     @Autowired
-    private WebClient webClient; // Utilisation de WebClient
+    private WebClient webClient;
 
     public List<Patient> getAllPatients() {
         return webClient.get()
@@ -25,7 +23,7 @@ public class PatientService {
                 .retrieve()
                 .bodyToFlux(Patient.class)
                 .collectList()
-                .block(); // Bloquer pour comportement synchrone
+                .block(); // Block for synchronous execution
     }
 
     public Patient getPatientById(String id) {

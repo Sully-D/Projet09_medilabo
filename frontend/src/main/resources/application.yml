@@ -9,6 +9,10 @@ patient:
   service:
     base-url: http://localhost:8080/api/patients
 
+note:
+  service:
+    base-url: http://localhost:8080/api/notes
+
 eureka:
   client:
     service-url:

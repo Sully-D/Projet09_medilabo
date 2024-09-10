@@ -1,7 +1,9 @@
 package com.medilabo.frontend.controller;
 
 import com.medilabo.backend.model.Patient;
+import com.medilabo.frontend.service.NoteService;
 import com.medilabo.frontend.service.PatientService;
+import com.medilabo.note.model.Note;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class PatientController {
 
     @Autowired
     private PatientService patientService;
+
+    @Autowired
+    private NoteService noteService;
 
     /**
      * Displays the list of all patients.
@@ -68,11 +73,20 @@ public class PatientController {
      * @return A redirect to the list of patients.
      */
     @PostMapping("/add")
-    public String addPatient(@ModelAttribute Patient patient) {
+    public String addPatient(@ModelAttribute Patient patient, @RequestParam("noteContent") String noteContent) {
         logger.info("Received request to add a new patient: {}", patient);
 
         try {
-            patientService.createPatient(patient);
+            Patient savedPatient = patientService.createPatient(patient);
+
+            // If notes are added, save them too
+            if (!noteContent.isEmpty()) {
+                Note note = new Note();
+                note.setPatientId(savedPatient.getId());  // Link the note to the patient
+                note.setNoteContent(noteContent);
+                noteService.addNote(note);
+            }
+
             return "redirect:/patients";
 
         } catch (Exception e) {
