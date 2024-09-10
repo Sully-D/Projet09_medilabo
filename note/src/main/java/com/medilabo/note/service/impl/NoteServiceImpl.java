@@ -44,4 +44,13 @@ public class NoteServiceImpl implements NoteService {
 
         return noteRepository.save(note);
     }
+
+    @Override
+    public Note save(Note note) {
+        if (note == null) {
+            throw new IllegalArgumentException("Note cannot be null");
+        }
+
+        return noteRepository.save(note);
+    }
 }

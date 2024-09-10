@@ -12,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -84,6 +86,7 @@ public class PatientController {
                 Note note = new Note();
                 note.setPatientId(savedPatient.getId());  // Link the note to the patient
                 note.setNoteContent(noteContent);
+                note.setNoteDate(String.valueOf(System.currentTimeMillis()));
                 noteService.addNote(note);
             }
 
@@ -107,16 +110,25 @@ public class PatientController {
         logger.info("Received request to display the edit patient form for ID: {}", id);
 
         try {
+            // Retrieve patient by ID
             Patient patient = patientService.getPatientById(id);
+
+            // Retrieve patient notes by ID
+            List<Note> notes = noteService.getNotesByPatientId(id).orElse(Collections.emptyList());
+
+            // Add patient and notes to template
             model.addAttribute("patient", patient);
+            model.addAttribute("notes", notes);
+
             return "edit-patient";
 
         } catch (Exception e) {
-            logger.error("Error occurred while fetching patient with ID: {}", id, e);
-            model.addAttribute("error", "An error occurred while fetching the patient");
+            logger.error("Error occurred while fetching patient or notes with ID: {}", id, e);
+            model.addAttribute("error", "An error occurred while fetching the patient or notes");
             return "error";
         }
     }
+
 
     /**
      * Handles the submission of the form to update an existing patient.

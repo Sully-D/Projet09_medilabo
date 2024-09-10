@@ -19,14 +19,12 @@ public class NoteController {
     private NoteService noteService;
 
     @GetMapping("/{patientId}")
-    public ResponseEntity<Optional<List<Note>>> getNotesByPatient(@PathVariable String patientId) {
-        Optional<List<Note>> notes = noteService.getNotesByPatientId(patientId);
-        return ResponseEntity.ok(notes);
+    public Optional<List<Note>> getNotesByPatient(@PathVariable String patientId) {
+        return noteService.getNotesByPatientId(patientId);
     }
 
     @PostMapping
-    public ResponseEntity<Note> addNote(@RequestBody Note note) {
-        Note savedNote = noteService.addNote(note);
-        return ResponseEntity.ok(savedNote);
+    public Note addNote(@RequestBody Note note) {
+        return noteService.save(note);
     }
 }

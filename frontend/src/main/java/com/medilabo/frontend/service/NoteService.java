@@ -20,17 +20,17 @@ public class NoteService {
 
 
     public Optional<List<Note>> getNotesByPatientId(String patientId) {
-        return webClient.get()
-                .uri(baseUrl + "/patients/" + patientId + "/notes")
+        return Optional.ofNullable(webClient.get()
+                .uri(baseUrl + "/notes?patientId=" + patientId)
                 .retrieve()
                 .bodyToFlux(Note.class)
                 .collectList()
-                .blockOptional();
+                .block());
     }
 
     public Note addNote(Note note) {
         return webClient.post()
-                .uri(baseUrl + "/notes")
+                .uri(baseUrl)
                 .bodyValue(note)
                 .retrieve()
                 .bodyToMono(Note.class)

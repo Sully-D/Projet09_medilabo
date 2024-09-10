@@ -12,4 +12,6 @@ public interface NoteService {
     Optional<List<Note>> getNotesByPatientId(String patientId);
 
     Note addNote(Note note);
+
+    Note save(Note note);
 }
