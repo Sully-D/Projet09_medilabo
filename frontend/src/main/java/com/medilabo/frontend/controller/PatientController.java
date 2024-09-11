@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -80,7 +81,7 @@ public class PatientController {
             Patient savedPatient = patientService.createPatient(patient);
 
             // If notes are added, save them too
-            if (!noteContent.isBlank()) {
+            if (!noteContent.isEmpty()) {
                 Note note = new Note();
                 note.setPatientId(savedPatient.getId());  // Link the note to the patient
                 note.setNoteContent(noteContent);
@@ -132,43 +133,94 @@ public class PatientController {
 
     /**
      * Handles the submission of the form to update an existing patient.
+     * It receives the patient's updated information and updates the record in the database.
      *
-     * @param id The ID of the patient to be updated.
-     * @param patient The updated patient object.
-     * @return A redirect to the list of patients.
+     * @param id      The ID of the patient to be updated. This is received from the URL path.
+     * @param patient The updated patient object, populated from the form submission.
+     * @return A redirect to the list of patients if successful, or back to the edit page with an error flag if the update fails.
      */
     @PostMapping("/edit/{id}")
     public String updatePatient(@PathVariable String id, @ModelAttribute Patient patient) {
+        // Log the incoming update request for the patient
         logger.info("Received request to update patient with ID: {}", id);
 
         try {
+            // Ensure that the patient object has the correct ID before updating
             patient.setId(id);
+
+            // Call the service to perform the update in the database
             patientService.updatePatient(patient);
+
+            // On successful update, redirect to the patients listing page
             return "redirect:/patients";
 
         } catch (Exception e) {
+            // Log the error details if something goes wrong during the update
             logger.error("Error occurred while updating patient with ID: {}", id, e);
+
+            // On failure, redirect back to the edit page and append an error query parameter
             return "redirect:/patients/edit/" + id + "?error=true";
         }
     }
 
+
     /**
-     * Deletes a patient and redirects to the list of patients.
+     * Adds a new note to the specified patient.
+     * If the note content is not empty, a new note is created and associated with the patient.
+     *
+     * @param id          The ID of the patient to whom the note is being added.
+     * @param noteContent The content of the note being added.
+     * @return A redirect back to the patient's edit page.
+     */
+    @PostMapping("/edit/{id}/add-note")
+    public String addNoteToPatient(@PathVariable String id, @RequestParam("noteContent") String noteContent) {
+        // Check if the note content is not empty before proceeding
+        if (!noteContent.isEmpty()) {
+            // Create a new Note object and associate it with the patient
+            Note note = new Note();
+            note.setPatientId(id);
+            note.setNoteContent(noteContent);
+
+            // Format the current date in 'yyyy-MM-dd' format and set it as the note's date
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            note.setNoteDate(OffsetDateTime.now().format(formatter));
+
+            // Save the new note via the NoteService
+            noteService.addNote(note);
+        }
+
+        // Redirect back to the edit page of the patient after adding the note
+        return "redirect:/patients/edit/" + id;
+    }
+
+
+    /**
+     * Deletes a patient by their ID and redirects to the list of patients.
+     * This method is triggered by a GET request and attempts to remove the patient
+     * from the database. In case of an error, it redirects to the list with an error flag.
      *
      * @param id The ID of the patient to be deleted.
-     * @return A redirect to the list of patients.
+     * @return A redirect to the list of patients if successful, or with an error flag in case of failure.
      */
     @GetMapping("/delete/{id}")
     public String deletePatient(@PathVariable String id) {
+        // Log the incoming request to delete the patient
         logger.info("Received request to delete patient with ID: {}", id);
 
         try {
+            // Call the service to delete the patient by ID
             patientService.deletePatient(id);
+
+            // On successful deletion, redirect to the patients listing page
             return "redirect:/patients";
 
         } catch (Exception e) {
+            // Log any errors that occur during deletion
             logger.error("Error occurred while deleting patient with ID: {}", id, e);
+
+            // Redirect back to the patient list with an error flag on failure
             return "redirect:/patients?error=true";
         }
     }
+
 }

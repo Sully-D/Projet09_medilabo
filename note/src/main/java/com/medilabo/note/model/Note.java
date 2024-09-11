@@ -15,7 +15,7 @@ public class Note {
     private String patientId;
     private String noteContent;
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private String noteDate;
 
 }
