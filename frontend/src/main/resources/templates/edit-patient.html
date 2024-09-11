@@ -32,7 +32,8 @@
   <h2>Notes du patient</h2>
   <ul>
     <li th:each="note : ${notes}">
-      <span th:text="${note.noteDate}"></span> : <span th:text="${note.noteContent}"></span>
+      <span th:text="${note.noteDate}"></span>
+      <span th:text="${note.noteContent}"></span>
     </li>
   </ul>
 

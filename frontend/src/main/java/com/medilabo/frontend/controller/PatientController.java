@@ -7,14 +7,12 @@ import com.medilabo.note.model.Note;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
+import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.Optional;
 
 
 /**
@@ -82,11 +80,11 @@ public class PatientController {
             Patient savedPatient = patientService.createPatient(patient);
 
             // If notes are added, save them too
-            if (!noteContent.isEmpty()) {
+            if (!noteContent.isBlank()) {
                 Note note = new Note();
                 note.setPatientId(savedPatient.getId());  // Link the note to the patient
                 note.setNoteContent(noteContent);
-                note.setNoteDate(String.valueOf(System.currentTimeMillis()));
+                note.setNoteDate(String.valueOf(OffsetDateTime.now()));
                 noteService.addNote(note);
             }
 
@@ -114,10 +112,9 @@ public class PatientController {
             Patient patient = patientService.getPatientById(id);
 
             // Retrieve patient notes by ID
-            Optional<List<Note>> notes = Optional.ofNullable(noteService.getNotesByPatientId(id));
-            if (notes.isEmpty()){
-                notes = Optional.empty();
-            }
+            List<Note> notes = noteService.getNotesByPatientId(id);
+
+            logger.info("Notes fetched: {}", notes);
 
             // Add patient and notes to template
             model.addAttribute("patient", patient);
