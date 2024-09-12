@@ -1,9 +1,15 @@
 spring:
   application:
     name: backend
-  data:
-    mongodb:
-      uri: mongodb://192.168.1.108:27017/medilabo
+  datasource:
+    url: jdbc:mysql://192.168.1.108:3306/medilabo
+    username: root
+    password: Qnyyera6!
+  jpa:
+    hibernate:
+      ddl-auto: create-drop  # !! REPLACE BY update IN PRODUCTION !!
+      dialect: org.hibernate.dialect.MySQLDialect
+    show-sql: true
 
 server:
   port: 8081
@@ -26,3 +32,4 @@ logging:
         cloud:
           gateway: DEBUG
           gateway.route: DEBUG
+          org.hibernate.SQL: DEBUG

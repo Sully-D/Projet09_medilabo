@@ -205,13 +205,13 @@ public class PatientServiceImpl implements PatientService {
 
         try {
             // Check if the patient exists before attempting to delete
-            if (!patientRepository.existsById(id)) {
+            if (!patientRepository.existsById(Long.valueOf(id))) {
                 logger.warn("Patient with ID: {} not found", id);
                 throw new PatientNotFoundException("Patient with ID " + id + " not found.");
             }
 
             // Delete the patient by ID
-            patientRepository.deleteById(id);
+            patientRepository.deleteById(Long.valueOf(id));
             logger.info("Patient with ID: {} deleted successfully", id);
 
         } catch (DataAccessException e) {
@@ -227,7 +227,7 @@ public class PatientServiceImpl implements PatientService {
 
         try {
             // Search for the patient in the repository
-            Optional<Patient> patient = patientRepository.getPatientById(id).stream().findFirst();
+            Optional<Patient> patient = patientRepository.getPatientById(Long.valueOf(id)).stream().findFirst();
 
             // Log whether the patient was found
             if (patient.isPresent()) {

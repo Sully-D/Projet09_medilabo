@@ -1,18 +1,20 @@
 package com.medilabo.backend.model;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.MongoId;
 
-@Document(collection = "patients")
+
+@Entity
+@Table(name = "patients") // Table SQL
 @Data
 public class Patient {
 
-    @MongoId
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;  // Remplacer par un Long auto-généré
 
     @NotNull
     @Size(min = 1, max = 50)
@@ -23,7 +25,7 @@ public class Patient {
     private String lastName;
 
     @NotNull
-    @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$") // YYYY-MM-DD format
+    @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$") // Format YYYY-MM-DD
     private String dateOfBirth;
 
     @NotNull

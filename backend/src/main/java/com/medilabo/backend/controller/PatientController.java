@@ -68,7 +68,7 @@ public class PatientController {
 
         try {
             // Set the patient ID before updating
-            patient.setId(id);
+            patient.setId(Long.valueOf(id));
 
             // Attempt to update the patient
             Patient updatedPatient = patientService.update(patient);

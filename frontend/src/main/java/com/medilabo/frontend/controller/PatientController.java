@@ -83,7 +83,7 @@ public class PatientController {
             // If notes are added, save them too
             if (!noteContent.isEmpty()) {
                 Note note = new Note();
-                note.setPatientId(savedPatient.getId());  // Link the note to the patient
+                note.setPatientId(String.valueOf(savedPatient.getId()));  // Link the note to the patient
                 note.setNoteContent(noteContent);
                 note.setNoteDate(String.valueOf(OffsetDateTime.now()));
                 noteService.addNote(note);
@@ -146,7 +146,7 @@ public class PatientController {
 
         try {
             // Ensure that the patient object has the correct ID before updating
-            patient.setId(id);
+            patient.setId(Long.valueOf(id));
 
             // Call the service to perform the update in the database
             patientService.updatePatient(patient);
