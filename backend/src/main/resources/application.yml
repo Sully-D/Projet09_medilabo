@@ -7,7 +7,7 @@ spring:
     password: Qnyyera6!
   jpa:
     hibernate:
-      ddl-auto: create-drop  # !! REPLACE BY update IN PRODUCTION !!
+      ddl-auto: update  # create-drop !! REPLACE BY update IN PRODUCTION !!
       dialect: org.hibernate.dialect.MySQLDialect
     show-sql: true
 
