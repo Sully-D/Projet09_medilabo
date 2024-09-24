@@ -16,6 +16,10 @@ spring:
               uri: lb://note
               predicates:
                 - Path=/api/notes/**
+            - id: risklevel
+              uri: lb://risklevel
+              predicates:
+                - Path=/api/risklevel/**
 
 server:
   port: 8080
