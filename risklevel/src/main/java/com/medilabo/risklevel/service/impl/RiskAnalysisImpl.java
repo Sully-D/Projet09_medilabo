@@ -1,10 +1,9 @@
-package com.medilabo.backend.service.impl;
+package com.medilabo.risklevel.service.impl;
 
-import com.medilabo.backend.service.RiskAnalysis;
 import com.medilabo.note.model.Note;
+import com.medilabo.risklevel.service.RiskAnalysis;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 

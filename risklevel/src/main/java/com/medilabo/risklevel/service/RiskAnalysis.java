@@ -1,4 +1,4 @@
-package com.medilabo.backend.service;
+package com.medilabo.risklevel.service;
 
 import com.medilabo.note.model.Note;
 import org.springframework.stereotype.Service;

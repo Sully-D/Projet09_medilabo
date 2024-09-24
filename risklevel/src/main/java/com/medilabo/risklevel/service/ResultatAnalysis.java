@@ -1,4 +1,4 @@
-package com.medilabo.backend.service;
+package com.medilabo.risklevel.service;
 
 import com.medilabo.backend.model.Patient;
 import org.springframework.stereotype.Service;
