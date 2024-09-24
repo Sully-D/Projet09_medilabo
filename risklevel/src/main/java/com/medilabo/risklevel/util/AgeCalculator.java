@@ -11,13 +11,10 @@ public class AgeCalculator {
 
     public static int calculateAge(String birthDateString) {
 
-        // Convertir la chaîne de caractères en LocalDate
         LocalDate birthDate = LocalDate.parse(birthDateString);
 
-        // Obtenir la date actuelle
         LocalDate currentDate = LocalDate.now();
 
-        // Calculer l'âge
         if ((birthDate != null) && (currentDate != null)) {
             return Period.between(birthDate, currentDate).getYears();
         } else {
