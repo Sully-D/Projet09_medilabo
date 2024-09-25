@@ -19,7 +19,7 @@ spring:
             - id: risklevel
               uri: lb://risklevel
               predicates:
-                - Path=/api/risklevel/**
+                - Path=/api/risklevels/**
 
 server:
   port: 8080

@@ -26,7 +26,7 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public List<Note> getNoteByPatientId(String patientId) {
         return webclient.get()
-                .uri(noteServiceConfig.getBaseUrl() + "/notes?patientId=" + patientId)
+                .uri(noteServiceConfig.getBaseUrl() + "?patientId=" + patientId)
                 .retrieve()
                 .bodyToFlux(Note.class)
                 .collectList()

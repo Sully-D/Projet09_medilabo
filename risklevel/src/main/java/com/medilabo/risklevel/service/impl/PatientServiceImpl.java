@@ -25,12 +25,11 @@ public class PatientServiceImpl implements PatientService {
 
 
     @Override
-    public List<Patient> getPatient(String id) {
+    public Patient getPatient(String id) {
         return webclient.get()
                 .uri(patientServiceConfig.getBaseUrl() + "/" + id)
                 .retrieve()
-                .bodyToFlux(Patient.class)
-                .collectList()
+                .bodyToMono(Patient.class)
                 .block();
     }
 }

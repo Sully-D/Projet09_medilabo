@@ -9,5 +9,5 @@ import java.util.List;
 @Service
 public interface PatientService {
 
-    List<Patient> getPatient(String id);
+    Patient getPatient(String id);
 }
