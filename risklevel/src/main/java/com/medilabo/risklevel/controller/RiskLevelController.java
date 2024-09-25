@@ -7,21 +7,18 @@ import com.medilabo.risklevel.service.PatientService;
 import com.medilabo.risklevel.service.ResultatAnalysis;
 import com.medilabo.risklevel.service.RiskAnalysis;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/risklevel")
-public class riskLevelController {
+@RequestMapping("/api/risklevel")
+public class RiskLevelController {
 
     @Autowired
     private NoteService noteService;
@@ -36,7 +33,7 @@ public class riskLevelController {
     private RiskAnalysis riskAnalysis;
 
     @GetMapping
-    public ResponseEntity<String> getRiskLevel(@PathVariable String patientId) {
+    public String getRiskLevel(@PathVariable String patientId) {
 
         List<Patient> patients = patientService.getPatient(patientId);
         List<Note> notes = noteService.getNoteByPatientId(patientId);
@@ -44,6 +41,6 @@ public class riskLevelController {
         int nbSymptoms = riskAnalysis.searchForSymptoms(notes);
         String levelOfRisk = resultatAnalysis.levelOfRisk(nbSymptoms, patients.get(0));
 
-        return ResponseEntity.ok(levelOfRisk);
+        return levelOfRisk;
     }
 }

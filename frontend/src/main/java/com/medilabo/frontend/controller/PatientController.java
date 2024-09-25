@@ -3,6 +3,7 @@ package com.medilabo.frontend.controller;
 import com.medilabo.backend.model.Patient;
 import com.medilabo.frontend.service.NoteService;
 import com.medilabo.frontend.service.PatientService;
+import com.medilabo.frontend.service.RisklevelService;
 import com.medilabo.note.model.Note;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +32,9 @@ public class PatientController {
 
     @Autowired
     private NoteService noteService;
+
+    @Autowired
+    private RisklevelService risklevelService;
 
     /**
      * Displays the list of all patients.
@@ -114,12 +118,16 @@ public class PatientController {
 
             // Retrieve patient notes by ID
             List<Note> notes = noteService.getNotesByPatientId(id);
-
             logger.info("Notes fetched: {}", notes);
 
-            // Add patient and notes to template
+            // Retrieve patient level of risk by ID
+            String levelOfRisk = risklevelService.getRiskLevelForPatient(id);
+            logger.info("Level of risk fetched: {}", levelOfRisk);
+
+            // Add patient, notes and level of risk to template
             model.addAttribute("patient", patient);
             model.addAttribute("notes", notes);
+            model.addAttribute("riskLevel", levelOfRisk);
 
             return "edit-patient";
 

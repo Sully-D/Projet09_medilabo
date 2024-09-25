@@ -13,6 +13,10 @@ note:
   service:
     base-url: http://localhost:8080/api/notes
 
+risklevel:
+  service:
+    base-url: http://localhost:8080/api/risklevels
+
 eureka:
   client:
     service-url:
