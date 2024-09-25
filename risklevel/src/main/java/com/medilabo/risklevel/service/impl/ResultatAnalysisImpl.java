@@ -12,51 +12,50 @@ public class ResultatAnalysisImpl implements ResultatAnalysis {
     @Override
     public String levelOfRisk(int nbSymptoms, Patient patient) {
 
-        String earlyOnset = "EarlyOnset";
-        String inDanger = "InDanger";
-        String borderline = "Borderline";
+        // Constantes level of risk
+        final String EARLY_ONSET = "EarlyOnset";
+        final String IN_DANGER = "InDanger";
+        final String BORDERLINE = "Borderline";
+        final String NONE = "None";
+
+        // Constantes for gender
+        final String MALE = "M";
+        final String FEMALE = "F";
 
         int agePatient = AgeCalculator.calculateAge(patient.getDateOfBirth());
+        String gender = patient.getGender();
 
-        // Early onset
-        if (patient.getGender().toUpperCase() == "M" && agePatient < 30) {
-            if (nbSymptoms >= 5) {
-                return earlyOnset;
+        // Early onset conditions
+        if (agePatient < 30) {
+            if (MALE.equalsIgnoreCase(gender) && nbSymptoms >= 5) {
+                return EARLY_ONSET;
             }
-        } else if (patient.getGender().toUpperCase() == "F" && agePatient < 30) {
-            if (nbSymptoms >= 7) {
-                return earlyOnset;
+            if (FEMALE.equalsIgnoreCase(gender) && nbSymptoms >= 7) {
+                return EARLY_ONSET;
             }
-        }
-        if (agePatient > 30) {
-            if (nbSymptoms >= 8) {
-                return earlyOnset;
-            }
+        } else if (agePatient >= 30 && nbSymptoms >= 8) {
+            return EARLY_ONSET;
         }
 
-        // In danger
-        if (patient.getGender().toUpperCase() == "M" && agePatient < 30) {
-            if (nbSymptoms == 3) {
-                return inDanger;
+        // In danger conditions
+        if (agePatient < 30) {
+            if (MALE.equalsIgnoreCase(gender) && nbSymptoms == 3) {
+                return IN_DANGER;
             }
-        } else if (patient.getGender().toUpperCase() == "F" && agePatient < 30) {
-            if (nbSymptoms == 4) {
-                return inDanger;
+            if (FEMALE.equalsIgnoreCase(gender) && nbSymptoms == 4) {
+                return IN_DANGER;
             }
-        }
-        if (agePatient > 30) {
-            if (nbSymptoms >= 6 && nbSymptoms <= 7) {
-                return inDanger;
-            }
+        } else if (agePatient >= 30 && nbSymptoms >= 6 && nbSymptoms <= 7) {
+            return IN_DANGER;
         }
 
-        // Borderline
-        if (agePatient > 30) {
-            if (nbSymptoms >= 2 && nbSymptoms <= 5) {
-                return borderline;
-            }
+        // Borderline condition
+        if (agePatient >= 30 && nbSymptoms >= 2 && nbSymptoms <= 5) {
+            return BORDERLINE;
         }
 
-        return "None";
+        // None Risk
+        return NONE;
     }
+
 }
