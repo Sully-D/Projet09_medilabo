@@ -9,7 +9,10 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 
-
+/**
+ * Patient service implementation that retrieves patient information using a WebClient.
+ * Utilizes a PatientServiceConfig to determine the base URL for the requests.
+ */
 @Service
 public class PatientServiceImpl implements PatientService {
 
@@ -24,6 +27,14 @@ public class PatientServiceImpl implements PatientService {
     }
 
 
+    /**
+     * Retrieves patient information by making a GET request using WebClient.
+     * Constructs the request URL by appending the provided 'id' to the base URL fetched from PatientServiceConfig.
+     * Converts the response body to a Mono of Patient class and blocks until the result is available.
+     *
+     * @param id The unique identifier of the patient to retrieve.
+     * @return The patient information fetched from the specified URL.
+     */
     @Override
     public Patient getPatient(String id) {
         return webclient.get()

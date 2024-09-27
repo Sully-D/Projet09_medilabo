@@ -4,42 +4,70 @@ import com.medilabo.note.model.Note;
 import com.medilabo.risklevel.service.RiskAnalysis;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 
+/**
+ * RiskAnalysisImpl class implements the RiskAnalysis interface to provide methods for searching symptoms in notes.
+ * Initializes a set of static symptoms and their corresponding patterns for efficient symptom detection.
+ * The searchForSymptoms method counts the occurrences of symptoms in the provided list of notes.
+ * The countSymptomsInNoteContent method counts the occurrences of symptoms in a single note's content.
+ */
 @Service
 public class RiskAnalysisImpl implements RiskAnalysis {
 
+    // List of static symptoms and compilation of patterns at class initialization
     private static final Set<String> SYMPTOMS = Set.of(
             "hémoglobine A1C", "microalbumine", "taille", "poids", "fumeur",
             "fumeuse", "anormal", "cholestérol", "vertiges", "rechute",
             "réaction", "anticorps"
     );
 
+
+    // Initializes a set of patterns for symptom matching by streaming the predefined list of symptoms.
+    private static final Set<Pattern> SYMPTOM_PATTERNS = SYMPTOMS.stream()
+            .map(symptom -> Pattern.compile(Pattern.quote(symptom), Pattern.CASE_INSENSITIVE))
+            .collect(Collectors.toSet());
+
+
+    /**
+     * Searches for symptoms in the provided list of notes.
+     * If the list is empty or null, returns 0.
+     * Counts the occurrences of symptoms in each note's content by calling the 'countSymptomsInNoteContent' method.
+     *
+     * @param noteList The list of notes to search for symptoms.
+     * @return The total count of symptoms found in the notes.
+     */
     @Override
     public int searchForSymptoms(List<Note> noteList) {
-        int countSymptoms = 0;
-
-        Set<Pattern> symptomPatterns = new HashSet<>();
-        for (String symptom : SYMPTOMS) {
-            symptomPatterns.add(Pattern.compile(Pattern.quote(symptom), Pattern.CASE_INSENSITIVE));
+        if (noteList == null || noteList.isEmpty()) {
+            return 0; // Retourne 0 si la liste est vide ou nulle.
         }
 
-        for (Note note : noteList) {
-            String content = note.getNoteContent();
-            if (content != null) {
-                String lowerCaseNoteContent = content.toLowerCase();
-                for (Pattern symptom : symptomPatterns) {
-                    if (symptom.matcher(lowerCaseNoteContent).find()) {
-                        countSymptoms++;
-                    }
-                }
+        return noteList.stream()
+                .filter(note -> note.getNoteContent() != null)
+                .mapToInt(note -> countSymptomsInNoteContent(note.getNoteContent()))
+                .sum();
+    }
+
+
+    /**
+     * Counts the number of symptoms in the given note content.
+     *
+     * @param noteContent the content of the note to analyze for symptoms
+     * @return the count of symptoms found in the note content
+     */
+    private int countSymptomsInNoteContent(String noteContent) {
+        int count = 0;
+        String lowerCaseNoteContent = noteContent.toLowerCase();
+        for (Pattern symptomPattern : SYMPTOM_PATTERNS) {
+            if (symptomPattern.matcher(lowerCaseNoteContent).find()) {
+                count++;
             }
         }
-
-        return countSymptoms;
+        return count;
     }
 }
