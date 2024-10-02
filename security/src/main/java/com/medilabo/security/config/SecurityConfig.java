@@ -24,11 +24,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests(authz -> authz
-                        .requestMatchers("/public/**", "/login", "/custom-error", "/error").permitAll()
+                        .requestMatchers("/public/**", "/custom-login", "/custom-error", "/error").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/login")
+                        .loginPage("/custom-login")
                         .permitAll()
                         .defaultSuccessUrl("/patients")
                         .failureUrl("/login?error=true")
