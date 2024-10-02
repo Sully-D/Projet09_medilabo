@@ -15,22 +15,37 @@ spring:
               uri: lb://backend
               predicates:
                 - Path=/api/patients/**
+              filters:
+                - JwtAuthenticationFilter
+                - StripPrefix=1
             - id: frontend
               uri: lb://frontend
               predicates:
                 - Path=/patients/**
+              filters:
+                - JwtAuthenticationFilter
+                - StripPrefix=1
             - id: note
               uri: lb://note
               predicates:
                 - Path=/api/notes/**
+              filters:
+                - JwtAuthenticationFilter
+                - StripPrefix=1
             - id: risklevel
               uri: lb://risklevel
               predicates:
                 - Path=/api/risklevels/**
+              filters:
+                - JwtAuthenticationFilter
+                - StripPrefix=1
             - id: security
               uri: lb://security
               predicates:
                 - Path=/login
+              filters:
+                - JwtAuthenticationFilter
+                - StripPrefix=1
 
 server:
   port: 8080
