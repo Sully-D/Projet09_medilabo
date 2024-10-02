@@ -1,6 +1,7 @@
 package com.medilabo.security.config;
 
 import com.nimbusds.jose.JOSEException;
+import com.nimbusds.jose.jwk.JWKSet;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -53,4 +54,10 @@ public class JwtConfig {
     public JwtEncoder jwtEncoder(JWKSource<SecurityContext> jwkSource) {
         return new NimbusJwtEncoder(jwkSource);
     }
+
+    @Bean
+    public JWKSet jwkSet(RSAKey rsaKey) {
+        return new JWKSet(rsaKey);
+    }
+
 }

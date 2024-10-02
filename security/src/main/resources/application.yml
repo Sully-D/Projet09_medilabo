@@ -20,3 +20,4 @@ logging:
       springframework:
         cloud:
           gateway: DEBUG
+        security: DEBUG
