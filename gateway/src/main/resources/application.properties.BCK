@@ -24,7 +24,7 @@ spring.cloud.gateway.routes[1].predicates[0]=Path=/patients/**
 
 logging.pattern.console=%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
 logging.level.com.medilabo.gateway=INFO
-logging.level.com.medilabo.gateway.config=DEBUG
+logging.level.com.medilabo.gateway.filter=DEBUG
 logging.level.org.springframework.security=DEBUG
 logging.level.org.springframework.cloud.gateway=DEBUG
 logging.level.org.springframework.cloud.gateway.route=DEBUG
