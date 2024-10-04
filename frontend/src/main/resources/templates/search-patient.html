@@ -8,7 +8,8 @@
 <body>
 <h1>Rechercher un patient</h1>
 
-<form th:action="@{/patients/search}" method="get">
+<!-- Formulaire pour rechercher un patient -->
+<form id="searchPatientForm">
   <label for="firstName">Prénom :</label>
   <input type="text" id="firstName" name="firstName" required>
 
@@ -18,12 +19,17 @@
   <button type="submit">Rechercher</button>
 </form>
 
-<div th:if="${patient}">
+<!-- Section où afficher les résultats de la recherche -->
+<div id="searchResult" style="display: none;">
   <h2>Résultat de la recherche</h2>
-  <p>Patient trouvé : <span th:text="${patient.firstName} + ' ' + ${patient.lastName}"></span></p>
-  <p>Date de naissance : <span th:text="${#dates.format(patient.dateOfBirth, 'dd/MM/yyyy')}"></span></p>
+  <p>Patient trouvé : <span id="patientName"></span></p>
+  <p>Date de naissance : <span id="patientDob"></span></p>
 </div>
 
 <a href="/patients">Retour à la liste des patients</a>
+
+<!-- Inclusion du fichier JS pour gérer la recherche -->
+<script src="/js/searchPatient.js"></script>
+
 </body>
 </html>

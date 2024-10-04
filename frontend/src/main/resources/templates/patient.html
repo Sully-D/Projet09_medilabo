@@ -4,6 +4,7 @@
   <title>Liste des Patients</title>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/listPatients.js"></script>  <!-- Inclure le fichier listPatients.js -->
 </head>
 <body>
 <h1>Liste des Patients</h1>
@@ -21,19 +22,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr th:each="patient : ${patients}">
-    <td th:text="${patient.firstName}"></td>
-    <td th:text="${patient.lastName}"></td>
-    <td th:text="${patient.dateOfBirth}"></td>
-    <td th:text="${patient.gender}"></td>
-    <td th:text="${patient.postalAddress}"></td>
-    <td th:text="${patient.phone}"></td>
-    <td>
-      <a th:href="@{/patients/edit/{id}(id=${patient.id})}">Modifier</a> |
-      <a th:href="@{/patients/delete/{id}(id=${patient.id})}"
-         onclick="return confirm('Voulez-vous vraiment supprimer ce patient ?')">Supprimer</a>
-    </td>
-  </tr>
+  <!-- Les patients seront ajoutés ici dynamiquement par JavaScript -->
   </tbody>
 </table>
 

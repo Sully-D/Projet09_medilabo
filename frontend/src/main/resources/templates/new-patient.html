@@ -8,25 +8,32 @@
 <body>
 <h1>Ajouter un nouveau patient</h1>
 
-<form th:action="@{/patients/add}" method="post">
+<form id="addPatientForm">
+    <!-- Prénom -->
     <label for="firstName">Prénom :</label>
     <input type="text" id="firstName" name="firstName" required>
 
+    <!-- Nom -->
     <label for="lastName">Nom :</label>
     <input type="text" id="lastName" name="lastName" required>
 
+    <!-- Date de naissance -->
     <label for="dateOfBirth">Date de naissance (AAAA-MM-JJ) :</label>
-    <input type="text" id="dateOfBirth" name="dateOfBirth" required>
+    <input type="date" id="dateOfBirth" name="dateOfBirth" required>
 
+    <!-- Genre -->
     <label for="gender">Genre :</label>
     <input type="text" id="gender" name="gender" required>
 
-    <label for="address">Adresse :</label>
-    <input type="text" id="address" name="address">
+    <!-- Adresse -->
+    <label for="postalAddress">Adresse :</label>
+    <input type="text" id="postalAddress" name="postalAddress">
 
-    <label for="phone">Telephone :</label>
-    <input type="text" id="phone" name="phone">
+    <!-- Téléphone -->
+    <label for="phone">Téléphone :</label>
+    <input type="tel" id="phone" name="phone" placeholder="Téléphone" pattern="^(\+\d{1,3}[- ]?)?\d{10}$" title="Entrez un numéro de téléphone valide">
 
+    <!-- Notes -->
     <label for="noteContent">Notes :</label>
     <textarea id="noteContent" name="noteContent" rows="5" placeholder="Ajouter des notes pour ce patient"></textarea>
 
@@ -34,5 +41,9 @@
 </form>
 
 <a href="/patients">Retour à la liste des patients</a>
+
+<!-- Inclusion du fichier JS pour gérer l'ajout du patient -->
+<script src="/js/addPatient.js"></script>
+
 </body>
 </html>

@@ -1,13 +1,12 @@
 spring:
   application:
     name: gateway
-  main:
-    web-application-type: reactive
+
   security:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://localhost:8085/.well-known/jwks.json
+          jwk-set-uri: http://localhost:8085/.well-known/jwks.json  # Point vers votre service de sécurité
   cloud:
     gateway:
           routes:
@@ -15,6 +14,8 @@ spring:
               uri: lb://backend
               predicates:
                 - Path=/api/patients/**
+              filters:
+                - RemoveRequestHeader=Cookie  # Nettoyage des cookies inutiles pour éviter les fuites
             - id: frontend
               uri: lb://frontend
               predicates:
@@ -31,6 +32,8 @@ spring:
               uri: lb://security
               predicates:
                 - Path=/login
+              filters:
+                - RemoveRequestHeader=Cookie
 
 server:
   port: 8080

@@ -3,6 +3,7 @@ package com.medilabo.security.config;
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -29,15 +30,23 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(csrf -> csrf.disable())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .csrf(csrf -> csrf.disable())  // Désactiver CSRF pour les APIs
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))  // JWT est stateless
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login").permitAll()
-                        .anyRequest().authenticated())
-                .httpBasic(Customizer.withDefaults())
-                .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()))
+                        .requestMatchers(HttpMethod.GET, "/login").permitAll()  // Autoriser GET sur /login pour afficher la page de login
+                        .requestMatchers(HttpMethod.POST, "/login").permitAll()  // Autoriser POST sur /login pour la soumission du formulaire de login
+                        .requestMatchers("/favicon.ico", "/css/**", "/js/**").permitAll()  // Permettre l'accès aux ressources statiques
+                        .anyRequest().authenticated()  // Protéger toutes les autres routes
+                )
+                .formLogin(formLogin -> formLogin
+                        .loginPage("/login")  // URL de la page de login personnalisée
+                        .defaultSuccessUrl("/patients", true)  // Redirection après succès de connexion
+                        .permitAll()  // Permettre l'accès à la page de login
+                )
+                .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()))  // JWT pour les autres requêtes
                 .build();
     }
+
 
     @Bean
     public JwtDecoder jwtDecoder() {

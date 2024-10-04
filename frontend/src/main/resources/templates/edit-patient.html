@@ -25,10 +25,10 @@
   <input type="text" id="gender" name="gender" th:value="${patient.gender}" required>
 
   <label for="postalAddress">Adresse postale :</label>
-  <input type="text" id="postalAddress" name="postalAddress" th:value="${patient.postalAddress}">
+  <input type="text" id="postalAddress" name="postalAddress">
 
   <label for="phoneNumber">N° de portable :</label>
-  <input type="text" id="phoneNumber" name="phone" th:value="${patient.phone}">
+  <input type="text" id="phoneNumber" name="phone">
 
   <button type="submit">Modifier</button>
 </form>
@@ -46,19 +46,19 @@
 
 <!-- Liste des notes du patient -->
 <h2>Notes du patient</h2>
-<ul>
-  <li th:each="note : ${notes}">
-    <span th:text="${note.noteDate}"></span>
-    <span th:text="${note.noteContent}"></span>
-  </li>
+<ul id="notesList">
+  <!-- Les notes seront ajoutées ici dynamiquement par le JavaScript -->
 </ul>
 
 <!-- Niveau de risque du patient -->
 <h2>Niveau de risque du patient</h2>
-<div>
-  <span th:text="${riskLevel}">Niveau de risque non disponible</span>
+<div id="riskLevel">
+  Niveau de risque non disponible
 </div>
 
 <a href="/patients">Retour à la liste des patients</a>
+
+<!-- Inclusion du fichier JavaScript externe -->
+<script src="/js/patient.js"></script> <!-- Lien vers votre fichier JS séparé -->
 </body>
 </html>
