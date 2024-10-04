@@ -10,31 +10,33 @@ spring:
           jwk-set-uri: http://localhost:8085/.well-known/jwks.json  # Point vers votre service de sécurité
   cloud:
     gateway:
-          routes:
-            - id: backend
-              uri: lb://backend
-              predicates:
-                - Path=/api/patients/**
-              filters:
-                - RemoveRequestHeader=Cookie  # Nettoyage des cookies inutiles pour éviter les fuites
-            - id: frontend
-              uri: lb://frontend
-              predicates:
-                - Path=/patients/**
-            - id: note
-              uri: lb://note
-              predicates:
-                - Path=/api/notes/**
-            - id: risklevel
-              uri: lb://risklevel
-              predicates:
-                - Path=/api/risklevels/**
-            - id: security
-              uri: lb://security
-              predicates:
-                - Path=/login
-              filters:
-                - RemoveRequestHeader=Cookie
+      forwarded:
+        enabled: true
+      routes:
+        - id: backend
+          uri: lb://backend
+          predicates:
+            - Path=/api/patients/**
+#          filters:
+#            - RemoveRequestHeader=Cookie  # Nettoyage des cookies inutiles pour éviter les fuites
+        - id: frontend
+          uri: lb://frontend
+          predicates:
+            - Path=/patients/**, /auth/login
+        - id: note
+          uri: lb://note
+          predicates:
+            - Path=/api/notes/**
+        - id: risklevel
+          uri: lb://risklevel
+          predicates:
+            - Path=/api/risklevels/**
+        - id: security
+          uri: lb://security
+          predicates:
+            - Path=/login, /logout
+          filters:
+            - RemoveRequestHeader=Cookie
 
 server:
   port: 8080

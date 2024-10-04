@@ -1,9 +1,15 @@
 spring:
   application:
     name: security
+  thymeleaf:
+    enabled: true
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
 
 server:
   port: 8085
+  forward-headers-strategy: framework
 
 eureka:
   client:

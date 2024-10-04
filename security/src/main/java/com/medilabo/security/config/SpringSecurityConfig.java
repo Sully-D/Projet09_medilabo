@@ -18,6 +18,7 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.filter.ForwardedHeaderFilter;
 
 import javax.crypto.spec.SecretKeySpec;
 
@@ -33,14 +34,15 @@ public class SpringSecurityConfig {
                 .csrf(csrf -> csrf.disable())  // Désactiver CSRF pour les APIs
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))  // JWT est stateless
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.GET, "/login").permitAll()  // Autoriser GET sur /login pour afficher la page de login
-                        .requestMatchers(HttpMethod.POST, "/login").permitAll()  // Autoriser POST sur /login pour la soumission du formulaire de login
-                        .requestMatchers("/favicon.ico", "/css/**", "/js/**").permitAll()  // Permettre l'accès aux ressources statiques
+                        .requestMatchers(HttpMethod.GET, "/auth/login").permitAll()  // Page de login
+                        .requestMatchers(HttpMethod.POST, "/login").permitAll()  // Soumission du formulaire
+                        .requestMatchers("/favicon.ico", "/css/**", "/js/**").permitAll()
                         .anyRequest().authenticated()  // Protéger toutes les autres routes
                 )
                 .formLogin(formLogin -> formLogin
-                        .loginPage("/login")  // URL de la page de login personnalisée
-                        .defaultSuccessUrl("/patients", true)  // Redirection après succès de connexion
+                        .loginPage("/auth/login")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/patients", true)
                         .permitAll()  // Permettre l'accès à la page de login
                 )
                 .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()))  // JWT pour les autres requêtes
@@ -72,5 +74,10 @@ public class SpringSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+
+    @Bean
+    public ForwardedHeaderFilter forwardedHeaderFilter() {
+        return new ForwardedHeaderFilter();
+    }
 
 }

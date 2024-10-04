@@ -16,10 +16,16 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(authorize -> authorize
                     .requestMatchers("/public/**").permitAll()
+                    .requestMatchers("/auth/login").permitAll()
                     .anyRequest().authenticated()
             )
+            .formLogin(formLogin -> formLogin
+                    .loginPage("/auth/login")
+                    .defaultSuccessUrl("/patients", true)
+                    .permitAll()  // Permettre l'accès à la page de login
+            )
             .oauth2ResourceServer(oauth2 -> oauth2
-                    .jwt(withDefaults())
+                .jwt(withDefaults())
             );
         return http.build();
     }
