@@ -3,6 +3,7 @@ spring:
     name: gateway
   main:
     web-application-type: reactive
+    allow-bean-definition-overriding: true
   security:
     oauth2:
       resourceserver:
