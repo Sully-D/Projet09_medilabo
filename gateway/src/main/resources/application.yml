@@ -11,7 +11,7 @@ spring:
             - id: frontend
               uri: lb://frontend
               predicates:
-                - Path=/patients/**
+                - Path=/patients/**, /auth/login
             - id: note
               uri: lb://note
               predicates:
@@ -20,6 +20,10 @@ spring:
               uri: lb://risklevel
               predicates:
                 - Path=/api/risklevels/**
+            - id: security
+              uri: lb://security
+              predicates:
+                - Path=/login
 
 server:
   port: 8080

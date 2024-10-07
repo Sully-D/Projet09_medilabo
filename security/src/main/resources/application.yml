@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: security
+
+server:
+  port: 8085
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8010/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  level:
+    com:
+      medilabo:
+        security: INFO
+    org:
+      springframework:
+        security: DEBUG
+        cloud:
+          gateway: DEBUG
