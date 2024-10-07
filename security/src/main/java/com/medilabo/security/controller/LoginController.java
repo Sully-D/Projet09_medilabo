@@ -1,4 +1,4 @@
-package com.medilabo.frontend.controller;
+package com.medilabo.security.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
