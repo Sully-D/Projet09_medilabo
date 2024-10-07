@@ -1,6 +1,10 @@
 spring:
   application:
     name: security
+  data:
+    redis:
+      host: 192.168.1.108
+      port: 6379
 
 server:
   port: 8085
