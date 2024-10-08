@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class LoginController {
 
+    /**
+     * Retrieves the login page.
+     *
+     * @return The name of the login page.
+     */
     @GetMapping("/auth/login")
     public String loginPage() {
         return "login";
