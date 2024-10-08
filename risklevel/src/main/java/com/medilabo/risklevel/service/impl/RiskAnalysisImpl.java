@@ -44,7 +44,7 @@ public class RiskAnalysisImpl implements RiskAnalysis {
     @Override
     public int searchForSymptoms(List<Note> noteList) {
         if (noteList == null || noteList.isEmpty()) {
-            return 0; // Retourne 0 si la liste est vide ou nulle.
+            return 0; // Return 0 if the list is null or empty
         }
 
         return noteList.stream()

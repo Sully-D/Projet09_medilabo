@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
+/**
+ * Controller class for managing risk levels.
+ * Retrieves patient information and notes to analyze the risk level.
+ * Uses services for note retrieval, patient retrieval, risk analysis, and result analysis.
+ */
 @RestController
 @RequestMapping("/api/risklevels")
 public class RiskLevelController {
@@ -29,6 +34,11 @@ public class RiskLevelController {
     @Autowired
     private RiskAnalysis riskAnalysis;
 
+    /**
+     * Controller class for managing risk levels.
+     * Retrieves patient information and notes to analyze the risk level.
+     * Utilizes internal services for note retrieval, patient retrieval, risk analysis, and result analysis.
+     */
     @GetMapping
     public String getRiskLevel(@RequestParam String patientId) {
 

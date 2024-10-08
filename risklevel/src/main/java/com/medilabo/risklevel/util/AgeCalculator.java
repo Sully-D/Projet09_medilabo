@@ -1,12 +1,12 @@
 package com.medilabo.risklevel.util;
 
-import lombok.experimental.UtilityClass;
-import org.springframework.stereotype.Component;
-
 import java.time.LocalDate;
 import java.time.Period;
 
-
+/**
+ * Calculates the age based on the given birthDateString string.
+ * @return the age calculated from the birthDateString to the current date
+ */
 public class AgeCalculator {
 
     public static int calculateAge(String birthDateString) {
