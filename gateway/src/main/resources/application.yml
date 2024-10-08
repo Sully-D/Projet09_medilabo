@@ -25,45 +25,45 @@ spring:
             - Path=/api/patients/**
           filters:
             - PreserveHostHeader  # Assurer que le Host header est préservé
-            - AddRequestHeader=X-Forwarded-For, 192.168.1.87
+            - AddRequestHeader=X-Forwarded-For, localhost
             - AddRequestHeader=X-Forwarded-Proto, http
-            - AddRequestHeader=X-Forwarded-Host, 192.168.1.87:8080
+            - AddRequestHeader=X-Forwarded-Host, localhost:8080
         - id: frontend
           uri: lb://frontend
           predicates:
             - Path=/patients/**
           filters:
             - PreserveHostHeader  # Assurer que le Host header est préservé
-            - AddRequestHeader=X-Forwarded-For, 192.168.1.87
+            - AddRequestHeader=X-Forwarded-For, localhost
             - AddRequestHeader=X-Forwarded-Proto, http
-            - AddRequestHeader=X-Forwarded-Host, 192.168.1.87:8080
+            - AddRequestHeader=X-Forwarded-Host, localhost:8080
         - id: note
           uri: lb://note
           predicates:
             - Path=/api/notes/**
           filters:
             - PreserveHostHeader  # Assurer que le Host header est préservé
-            - AddRequestHeader=X-Forwarded-For, 192.168.1.87
+            - AddRequestHeader=X-Forwarded-For, localhost
             - AddRequestHeader=X-Forwarded-Proto, http
-            - AddRequestHeader=X-Forwarded-Host, 192.168.1.87:8080
+            - AddRequestHeader=X-Forwarded-Host, localhost:8080
         - id: risklevel
           uri: lb://risklevel
           predicates:
             - Path=/api/risklevels/**
           filters:
             - PreserveHostHeader  # Assurer que le Host header est préservé
-            - AddRequestHeader=X-Forwarded-For, 192.168.1.87
+            - AddRequestHeader=X-Forwarded-For, localhost
             - AddRequestHeader=X-Forwarded-Proto, http
-            - AddRequestHeader=X-Forwarded-Host, 192.168.1.87:8080
+            - AddRequestHeader=X-Forwarded-Host, localhost:8080
         - id: security
           uri: lb://security
           predicates:
             - Path=/login, /auth/**
           filters:
             - PreserveHostHeader  # Assurer que le Host header est préservé
-            - AddRequestHeader=X-Forwarded-For, 192.168.1.87
+            - AddRequestHeader=X-Forwarded-For, localhost
             - AddRequestHeader=X-Forwarded-Proto, http
-            - AddRequestHeader=X-Forwarded-Host, 192.168.1.87:8080
+            - AddRequestHeader=X-Forwarded-Host, localhost:8080
 
 server:
   port: 8080
