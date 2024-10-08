@@ -15,6 +15,10 @@ import java.util.List;
 import java.util.Optional;
 
 
+/**
+ * Controller handling patient notes operations.
+ * Retrieves and adds notes for a specific patient identified by their ID.
+ */
 @Controller
 @Log4j2
 public class PatientNotesController {
@@ -22,6 +26,12 @@ public class PatientNotesController {
     @Autowired
     private NoteService noteService;
 
+    /**
+     * Retrieves notes for a specific patient identified by their ID.
+     * @param patientId The ID of the patient whose notes are being retrieved.
+     * @param model The model to which the retrieved notes will be added.
+     * @return The name of the view template to render.
+     */
     @GetMapping("/patients/{patientId}/notes")
     public String getPatientNotes(@PathVariable String patientId, Model model) {
         log.info("Received request to get patient notes");
@@ -37,6 +47,12 @@ public class PatientNotesController {
         }
     }
 
+    /**
+     * Adds a new note for a specific patient identified by their ID.
+     * @param patientId The ID of the patient whose note is being added.
+     * @param note The note to be added.
+     * @return The name of the view template to render.
+     */
     @PostMapping("/patients/{patientId}/notes")
     public String addNote(@PathVariable String patientId, Note note) {
         log.info("Received request to add note: {}", note);

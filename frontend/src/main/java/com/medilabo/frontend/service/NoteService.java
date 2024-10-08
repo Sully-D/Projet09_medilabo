@@ -9,6 +9,11 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.util.List;
 import java.util.Optional;
 
+
+/**
+ * Service class for handling note-related operations.
+ * Utilizes WebClient for making HTTP requests to an external note service.
+ */
 @Service
 public class NoteService {
 

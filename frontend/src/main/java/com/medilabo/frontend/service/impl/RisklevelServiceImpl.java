@@ -8,6 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 
+/**
+ * Service implementation for interacting with the risk level service.
+ * Retrieves the risk level for a specific patient identified by their ID.
+ * Utilizes WebClient for making HTTP requests to the risk level service.
+ */
 @Service
 public class RisklevelServiceImpl implements RisklevelService {
 
@@ -17,7 +22,7 @@ public class RisklevelServiceImpl implements RisklevelService {
     private RisklevelConfig risklevelConfig;
 
     @Autowired
-    private HttpServletRequest request;  // Injection de HttpServletRequest pour accéder aux cookies
+    private HttpServletRequest request;  // Inject HttpServletRequest to access cookies
 
     @Autowired
     public RisklevelServiceImpl(RisklevelConfig risklevelConfig) {
@@ -25,28 +30,39 @@ public class RisklevelServiceImpl implements RisklevelService {
     }
 
 
+    /**
+     * Retrieves the risk level for a specific patient identified by their ID.
+     *
+     * @param patientId the ID of the patient
+     * @return the risk level for the patient
+     */
     @Override
     public String getRiskLevelForPatient(String patientId) {
-        // Récupérer le cookie JSESSIONID de la requête
-        String sessionId = getSessionIdFromCookies();
+
+        String sessionId = getSessionIdFromCookies();   // Retrieve session ID from cookies
 
         return webClient.get()
                 .uri(risklevelConfig.getBaseUrl() + "?patientId=" + patientId)
-                .cookie("JSESSIONID", sessionId)  // Transmet le cookie de session
+                .cookie("JSESSIONID", sessionId)
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
     }
 
-    // Méthode pour récupérer le JSESSIONID depuis les cookies
+    /**
+     * Retrieves the session ID from the cookies in the HTTP request.
+     * If the cookie is not found, returns null.
+     *
+     * @return the session ID or null
+     */
     private String getSessionIdFromCookies() {
         if (request.getCookies() != null) {
             for (jakarta.servlet.http.Cookie cookie : request.getCookies()) {
                 if ("JSESSIONID".equals(cookie.getName())) {
-                    return cookie.getValue();  // Récupérer la valeur du cookie JSESSIONID
+                    return cookie.getValue();
                 }
             }
         }
-        return null;  // Retourne null si le cookie n'est pas trouvé
+        return null;
     }
 }
