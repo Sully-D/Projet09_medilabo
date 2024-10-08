@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
 @Log4j2
 public class NoteServiceImpl implements NoteService {
@@ -17,6 +18,13 @@ public class NoteServiceImpl implements NoteService {
     @Autowired
     private NoteRepository noteRepository;
 
+    /**
+     * Retrieves a list of notes associated with a specific patient ID.
+     *
+     * @param patientId The ID of the patient to retrieve notes for
+     * @return An Optional containing the list of notes if found, empty otherwise
+     * @throws IllegalArgumentException if the patientId is null
+     */
     @Override
     public Optional<List<Note>> getNotesByPatientId(String patientId) {
 
@@ -35,16 +43,12 @@ public class NoteServiceImpl implements NoteService {
         return notes;
     }
 
-    @Override
-    public Note addNote(Note note) {
-
-        if (note == null) {
-            throw new IllegalArgumentException("Note cannot be null");
-        }
-
-        return noteRepository.save(note);
-    }
-
+    /**
+     * Saves a note.
+     *
+     * @param note the note to be saved
+     * @return the saved note
+     */
     @Override
     public Note save(Note note) {
         if (note == null) {
