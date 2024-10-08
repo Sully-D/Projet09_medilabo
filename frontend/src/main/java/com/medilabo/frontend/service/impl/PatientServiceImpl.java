@@ -1,7 +1,12 @@
-package com.medilabo.frontend.service;
+package com.medilabo.frontend.service.impl;
 
 import com.medilabo.backend.model.Patient;
+import com.medilabo.frontend.config.PatientConfig;
+import com.medilabo.frontend.service.PatientService;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 
@@ -11,7 +16,20 @@ import java.util.List;
  * Provides methods for retrieving the list of all patients.
  */
 @Service
-public interface PatientService {
+public class PatientServiceImpl implements PatientService {
+
+    @Autowired
+    private WebClient webClient;
+
+    private PatientConfig patientConfig;
+
+    @Autowired
+    private HttpServletRequest request;  // Inject HttpServletRequest to access cookies
+
+    @Autowired
+    public PatientServiceImpl(PatientConfig patientConfig) {
+        this.patientConfig = patientConfig;
+    }
 
     /**
      * Retrieves a list of all patients by sending a GET request to the specified base URL.
@@ -20,7 +38,14 @@ public interface PatientService {
      *
      * @return List of all patients retrieved from the service
      */
-    public List<Patient> getAllPatients();
+    public List<Patient> getAllPatients() {
+        return webClient.get()
+                .uri(patientConfig.getBaseUrl())
+                .retrieve()
+                .bodyToFlux(Patient.class)
+                .collectList()
+                .block(); // Block for synchronous execution
+    }
 
     /**
      * Retrieves a patient by their ID by sending a GET request to the specified base URL with the ID as a path variable.
@@ -30,7 +55,13 @@ public interface PatientService {
      * @param id the ID of the patient to retrieve
      * @return the patient retrieved from the service, or null if not found
      */
-    public Patient getPatientById(String id);
+    public Patient getPatientById(String id) {
+        return webClient.get()
+                .uri(patientConfig.getBaseUrl() + "/" + id)
+                .retrieve()
+                .bodyToMono(Patient.class)
+                .block();
+    }
 
     /**
      * Creates a new patient by sending a POST request to the specified base URL with the provided patient as the request body.
@@ -40,7 +71,14 @@ public interface PatientService {
      * @param patient the patient object to be created
      * @return the created patient retrieved from the service
      */
-    public Patient createPatient(Patient patient);
+    public Patient createPatient(Patient patient) {
+        return webClient.post()
+                .uri(patientConfig.getBaseUrl())
+                .bodyValue(patient)
+                .retrieve()
+                .bodyToMono(Patient.class)
+                .block();
+    }
 
     /**
      * Updates an existing patient by sending a PUT request to the specified base URL with the provided patient as the request body.
@@ -50,7 +88,14 @@ public interface PatientService {
      * @param patient the patient object to be updated
      * @return the updated patient retrieved from the service
      */
-    public Patient updatePatient(Patient patient);
+    public Patient updatePatient(Patient patient) {
+        return webClient.put()
+                .uri(patientConfig.getBaseUrl() + "/" + patient.getId())
+                .bodyValue(patient)
+                .retrieve()
+                .bodyToMono(Patient.class)
+                .block();
+    }
 
     /**
      * Deletes a patient from the system by sending a DELETE request to the specified base URL with the ID of the patient to be deleted.
@@ -59,5 +104,11 @@ public interface PatientService {
      *
      * @param id the ID of the patient to be deleted
      */
-    public void deletePatient(String id);
+    public void deletePatient(String id) {
+        webClient.delete()
+                .uri(patientConfig.getBaseUrl() + "/" + id)
+                .retrieve()
+                .toBodilessEntity()
+                .block();
+    }
 }
