@@ -1,4 +1,4 @@
-package com.medilabo.security.config;
+package com.medilabo.frontend.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,10 +19,13 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(auth -> {
-            auth.requestMatchers("/auth/login", "/login").permitAll();
-            //auth.anyRequest().authenticated();
-            auth.anyRequest().permitAll();
-        }).formLogin(Customizer.withDefaults()).build();
+                    auth.requestMatchers("/login").permitAll();
+                    auth.anyRequest().authenticated();
+                })
+                .formLogin(form ->
+                        form.defaultSuccessUrl("http://localhost:8080/patients", true) // Redirige vers /patients après connexion
+                )
+                .build();
     }
 
     @Bean
@@ -38,6 +41,5 @@ public class SpringSecurityConfig {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-
 }
+

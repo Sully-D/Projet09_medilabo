@@ -1,27 +1,43 @@
-spring:
-  application:
-    name: eureka
-  data:
-    redis:
-      host: 192.168.1.108
-      port: 6379
-
-info:
-  component: DiscoveryService
+#spring:
+#  application:
+#    name: eureka
+#
+#info:
+#  component: DiscoveryService
+#
+#server:
+#  port: 8010
+#
+#eureka:
+#  server:
+#    enable-self-preservation: false
+#    waitTimeInMsWhenSyncEmpty: 0
+#  instance:
+#    lease-expiration-duration-in-seconds: 15
+#    lease-renewal-interval-in-seconds: 5
+#    hostname: localhost
+#  client:
+#    register-with-eureka: false
+#    fetch-registry: false
+#    service-url:
+#      defaultZone: http://localhost:8010/eureka/
 
 server:
   port: 8010
 
 eureka:
-  server:
-    enable-self-preservation: false
-    waitTimeInMsWhenSyncEmpty: 0
-  instance:
-    lease-expiration-duration-in-seconds: 15
-    lease-renewal-interval-in-seconds: 5
-    hostname: localhost
   client:
-    register-with-eureka: false
-    fetch-registry: false
-    service-url:
-      defaultZone: http://localhost:8010/eureka/
+    register-with-eureka: false  # Cela empêche le serveur Eureka de s'enregistrer lui-même
+    fetch-registry: false  # Il ne cherche pas de registres, car il est le serveur
+  instance:
+    hostname: localhost
+    leaseRenewalIntervalInSeconds: 10  # Intervalle de renouvellement
+    leaseExpirationDurationInSeconds: 30  # Temps avant de marquer le service DOWN
+  server:
+    enable-self-preservation: false  # Désactiver pour les tests (peut être activé en prod)
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
