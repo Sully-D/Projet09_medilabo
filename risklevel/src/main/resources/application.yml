@@ -13,16 +13,16 @@ server:
 
 patient:
   service:
-    base-url: http://localhost:8080/api/patients
+    base-url: http://gateway:8080/api/patients
 
 note:
   service:
-    base-url: http://localhost:8080/api/notes
+    base-url: http://gateway:8080/api/notes
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8010/eureka/
+      defaultZone: http://eureka:8010/eureka/
     register-with-eureka: true
     fetch-registry: true
 

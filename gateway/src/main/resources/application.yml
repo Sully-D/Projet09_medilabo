@@ -20,12 +20,6 @@ spring:
           uri: lb://risklevel
           predicates:
             - Path=/api/risklevels/**
-#        - id: security
-#          uri: lb://security
-#          predicates:
-#            - Path=/login
-#            - Path=/auth/**
-
 
 server:
   port: 8080
@@ -39,7 +33,7 @@ management:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8010/eureka/
+      defaultZone: http://eureka:8010/eureka/
     register-with-eureka: true
     fetch-registry: true
   instance:

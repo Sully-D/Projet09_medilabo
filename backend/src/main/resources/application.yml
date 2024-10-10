@@ -21,11 +21,11 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8010/eureka/
+      defaultZone: http://eureka:8010/eureka/
     register-with-eureka: true
     fetch-registry: true
   instance:
-    hostname: localhost
+    hostname: backend
 
 logging:
   pattern:

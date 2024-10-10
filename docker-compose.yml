@@ -3,6 +3,8 @@ services:
     image: eureka
     ports:
       - "8010:8010"
+    networks:
+      - medilabo-net
 
   backend:
     image: backend
@@ -10,6 +12,8 @@ services:
       - "8081:8081"
     depends_on:
       - eureka
+    networks:
+      - medilabo-net
 
   note:
     image: note
@@ -18,6 +22,8 @@ services:
     depends_on:
       - eureka
       - backend
+    networks:
+      - medilabo-net
 
   risklevel:
     image: risklevel
@@ -26,6 +32,8 @@ services:
     depends_on:
       - eureka
       - backend
+    networks:
+      - medilabo-net
 
   frontend:
     image: frontend
@@ -36,6 +44,8 @@ services:
       - backend
       - note
       - risklevel
+    networks:
+      - medilabo-net
 
   gateway:
     image: gateway
@@ -47,3 +57,9 @@ services:
       - note
       - risklevel
       - frontend
+    networks:
+      - medilabo-net
+
+networks:
+  medilabo-net:
+    driver: bridge
