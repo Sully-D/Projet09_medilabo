@@ -93,11 +93,11 @@ public class PatientController {
                 noteService.addNote(note);
             }
 
-            return "redirect:/patients";
+            return "redirect:http://localhost:8080/patients";
 
         } catch (Exception e) {
             logger.error("Error occurred while adding patient: {}", e.getMessage(), e);
-            return "redirect:/patients/new-patient?error=true";
+            return "redirect:http://localhost:8080/patients/new-patient?error=true";
         }
     }
 
@@ -160,14 +160,14 @@ public class PatientController {
             patientService.updatePatient(patient);
 
             // On successful update, redirect to the patients listing page
-            return "redirect:/patients";
+            return "redirect:http://localhost:8080/patients";
 
         } catch (Exception e) {
             // Log the error details if something goes wrong during the update
             logger.error("Error occurred while updating patient with ID: {}", id, e);
 
             // On failure, redirect back to the edit page and append an error query parameter
-            return "redirect:/patients/edit/" + id + "?error=true";
+            return "redirect:http://localhost:8080/patients/edit/" + id + "?error=true";
         }
     }
 
@@ -198,7 +198,7 @@ public class PatientController {
         }
 
         // Redirect back to the edit page of the patient after adding the note
-        return "redirect:/patients/edit/" + id;
+        return "redirect:http://localhost:8080/patients/edit/" + id;
     }
 
 
@@ -220,14 +220,14 @@ public class PatientController {
             patientService.deletePatient(id);
 
             // On successful deletion, redirect to the patients listing page
-            return "redirect:/patients";
+            return "redirect:http://localhost:8080/patients";
 
         } catch (Exception e) {
             // Log any errors that occur during deletion
             logger.error("Error occurred while deleting patient with ID: {}", id, e);
 
             // Redirect back to the patient list with an error flag on failure
-            return "redirect:/patients?error=true";
+            return "redirect:http://localhost:8080/patients?error=true";
         }
     }
 
