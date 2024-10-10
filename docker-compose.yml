@@ -37,13 +37,6 @@ services:
       - note
       - risklevel
 
-  security:
-    image: security
-    ports:
-      - "8085:8085"
-    depends_on:
-      - eureka
-
   gateway:
     image: gateway
     ports:
@@ -53,5 +46,4 @@ services:
       - backend
       - note
       - risklevel
-      - security
       - frontend
