@@ -5,10 +5,10 @@ FROM openjdk:21-jdk-slim
 WORKDIR /app
 
 # Étape 3 : Copier le fichier JAR généré dans le conteneur
-COPY target/risklevel-0.0.1-SNAPSHOT.jar /app/risklevel-0.0.1-SNAPSHOT.jar
+COPY target/risklevel-0.0.1-SNAPSHOT.jar /app/risklevel.jar
 
 # Étape 4 : Exposer le port sur lequel ton service écoute
 EXPOSE 8084
 
 # Étape 5 : Commande pour exécuter l'application
-ENTRYPOINT ["java", "-jar", "/app/risklevel-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "/app/risklevel.jar"]

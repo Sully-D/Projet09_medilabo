@@ -5,10 +5,10 @@ FROM openjdk:21-jdk-slim
 WORKDIR /app
 
 # Étape 3 : Copier le fichier JAR généré dans le conteneur
-COPY target/backend-0.0.1-SNAPSHOT.jar /app/backend-0.0.1-SNAPSHOT.jar
+COPY target/backend-0.0.1-SNAPSHOT.jar /app/backend.jar
 
 # Étape 4 : Exposer le port sur lequel ton service écoute
 EXPOSE 8081
 
 # Étape 5 : Commande pour exécuter l'application
-ENTRYPOINT ["java", "-jar", "/app/backend-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "/app/backend.jar"]
