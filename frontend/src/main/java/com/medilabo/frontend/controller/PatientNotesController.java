@@ -1,8 +1,8 @@
 package com.medilabo.frontend.controller;
 
 
+import com.medilabo.frontend.model.Note;
 import com.medilabo.frontend.service.NoteService;
-import com.medilabo.note.model.Note;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

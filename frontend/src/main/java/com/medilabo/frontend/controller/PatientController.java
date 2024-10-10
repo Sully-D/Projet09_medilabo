@@ -1,10 +1,10 @@
 package com.medilabo.frontend.controller;
 
-import com.medilabo.backend.model.Patient;
+import com.medilabo.frontend.model.Note;
+import com.medilabo.frontend.model.Patient;
 import com.medilabo.frontend.service.NoteService;
 import com.medilabo.frontend.service.PatientService;
 import com.medilabo.frontend.service.RisklevelService;
-import com.medilabo.note.model.Note;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

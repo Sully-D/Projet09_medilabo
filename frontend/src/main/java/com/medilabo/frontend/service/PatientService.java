@@ -1,6 +1,6 @@
 package com.medilabo.frontend.service;
 
-import com.medilabo.backend.model.Patient;
+import com.medilabo.frontend.model.Patient;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

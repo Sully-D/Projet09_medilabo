@@ -1,6 +1,6 @@
 package com.medilabo.risklevel.service.impl;
 
-import com.medilabo.backend.model.Patient;
+import com.medilabo.risklevel.model.Patient;
 import com.medilabo.risklevel.service.ResultatAnalysis;
 import com.medilabo.risklevel.util.AgeCalculator;
 import org.springframework.stereotype.Service;

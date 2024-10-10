@@ -1,8 +1,8 @@
 package com.medilabo.frontend.service.impl;
 
 import com.medilabo.frontend.config.NoteConfig;
+import com.medilabo.frontend.model.Note;
 import com.medilabo.frontend.service.NoteService;
-import com.medilabo.note.model.Note;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

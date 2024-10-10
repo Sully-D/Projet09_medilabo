@@ -1,6 +1,7 @@
 package com.medilabo.frontend.service;
 
-import com.medilabo.note.model.Note;
+
+import com.medilabo.frontend.model.Note;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

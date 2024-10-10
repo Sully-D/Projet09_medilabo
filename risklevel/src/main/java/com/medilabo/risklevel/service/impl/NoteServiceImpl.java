@@ -1,7 +1,8 @@
 package com.medilabo.risklevel.service.impl;
 
-import com.medilabo.note.model.Note;
+
 import com.medilabo.risklevel.config.NoteServiceConfig;
+import com.medilabo.risklevel.model.Note;
 import com.medilabo.risklevel.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

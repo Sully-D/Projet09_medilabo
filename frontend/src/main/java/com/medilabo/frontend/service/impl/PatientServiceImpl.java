@@ -1,7 +1,7 @@
 package com.medilabo.frontend.service.impl;
 
-import com.medilabo.backend.model.Patient;
 import com.medilabo.frontend.config.PatientConfig;
+import com.medilabo.frontend.model.Patient;
 import com.medilabo.frontend.service.PatientService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;

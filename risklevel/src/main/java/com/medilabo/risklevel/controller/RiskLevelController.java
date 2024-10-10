@@ -1,13 +1,12 @@
 package com.medilabo.risklevel.controller;
 
-import com.medilabo.backend.model.Patient;
-import com.medilabo.note.model.Note;
+import com.medilabo.risklevel.model.Note;
+import com.medilabo.risklevel.model.Patient;
 import com.medilabo.risklevel.service.NoteService;
 import com.medilabo.risklevel.service.PatientService;
 import com.medilabo.risklevel.service.ResultatAnalysis;
 import com.medilabo.risklevel.service.RiskAnalysis;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

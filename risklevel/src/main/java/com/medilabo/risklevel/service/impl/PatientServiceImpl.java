@@ -1,7 +1,7 @@
 package com.medilabo.risklevel.service.impl;
 
-import com.medilabo.backend.model.Patient;
 import com.medilabo.risklevel.config.PatientServiceConfig;
+import com.medilabo.risklevel.model.Patient;
 import com.medilabo.risklevel.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
