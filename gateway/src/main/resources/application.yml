@@ -39,6 +39,7 @@ eureka:
   instance:
     leaseRenewalIntervalInSeconds: 30
     leaseExpirationDurationInSeconds: 90
+    hostname: gateway
 
 
 logging:

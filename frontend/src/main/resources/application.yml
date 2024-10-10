@@ -27,6 +27,8 @@ eureka:
       defaultZone: http://eureka:8010/eureka/
     register-with-eureka: true
     fetch-registry: true
+  instance:
+    hostname: frontend
 
 logging:
   pattern:
